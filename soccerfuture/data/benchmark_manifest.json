@@ -1,0 +1,111 @@
+{
+  "version": "v2.0-soccer-baseline",
+  "pipeline_config": {
+    "n": 20,
+    "k": 5,
+    "seed": 42,
+    "validity_weight": 0.5,
+    "opportunity_weight": 0.5
+  },
+  "scenarios": [
+    {
+      "scenario_file": "counter_attack_midfield.json",
+      "gating_pass_count": 20,
+      "top_branch_min_score": 0.6625532825534481,
+      "bottom_branch_max_score": 0.652727145557016,
+      "strategy_counts": {
+        "route_variation": 7,
+        "speed_variation": 7,
+        "decision_variation": 6
+      },
+      "expected_top_k": [
+        {
+          "branch_id": "gen-003",
+          "composite_score": 0.6625532825534481
+        },
+        {
+          "branch_id": "gen-006",
+          "composite_score": 0.6571384624203007
+        },
+        {
+          "branch_id": "gen-009",
+          "composite_score": 0.6538611411560782
+        },
+        {
+          "branch_id": "gen-017",
+          "composite_score": 0.6535498610990743
+        },
+        {
+          "branch_id": "gen-020",
+          "composite_score": 0.652727145557016
+        }
+      ]
+    },
+    {
+      "scenario_file": "build_up_from_defense.json",
+      "gating_pass_count": 20,
+      "top_branch_min_score": 0.6447693203794438,
+      "bottom_branch_max_score": 0.6356971826554345,
+      "strategy_counts": {
+        "route_variation": 7,
+        "speed_variation": 7,
+        "decision_variation": 6
+      },
+      "expected_top_k": [
+        {
+          "branch_id": "gen-003",
+          "composite_score": 0.6447693203794438
+        },
+        {
+          "branch_id": "gen-015",
+          "composite_score": 0.6439050874628571
+        },
+        {
+          "branch_id": "gen-006",
+          "composite_score": 0.6434499103007296
+        },
+        {
+          "branch_id": "gen-020",
+          "composite_score": 0.6375576203406288
+        },
+        {
+          "branch_id": "gen-013",
+          "composite_score": 0.6356971826554345
+        }
+      ]
+    },
+    {
+      "scenario_file": "set_piece_penalty_area.json",
+      "gating_pass_count": 20,
+      "top_branch_min_score": 0.6455936682680368,
+      "bottom_branch_max_score": 0.6354536939833162,
+      "strategy_counts": {
+        "route_variation": 7,
+        "speed_variation": 7,
+        "decision_variation": 6
+      },
+      "expected_top_k": [
+        {
+          "branch_id": "gen-003",
+          "composite_score": 0.6455936682680368
+        },
+        {
+          "branch_id": "gen-006",
+          "composite_score": 0.6422933821554524
+        },
+        {
+          "branch_id": "gen-010",
+          "composite_score": 0.6413579727086861
+        },
+        {
+          "branch_id": "gen-009",
+          "composite_score": 0.6379186210250964
+        },
+        {
+          "branch_id": "gen-017",
+          "composite_score": 0.6354536939833162
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "home_team": "TeamA",
+  "away_team": "TeamB",
+  "lookback_matches": 10,
+  "home_metrics": {
+    "matches_sampled": 10, "wins": 6, "draws": 2, "losses": 2,
+    "goals_for_avg": 1.8, "goals_against_avg": 0.9,
+    "xg_for_avg": 1.7, "xg_against_avg": 1.0,
+    "form_points": 20, "elo": 1650.0, "style_tags": ["high-press"]
+  },
+  "away_metrics": {
+    "matches_sampled": 10, "wins": 4, "draws": 3, "losses": 3,
+    "goals_for_avg": 1.2, "goals_against_avg": 1.1,
+    "xg_for_avg": 1.3, "xg_against_avg": 1.2,
+    "form_points": 15, "elo": 1580.0, "style_tags": ["counter"]
+  },
+  "comparative_signals": {
+    "stronger_team": "TeamA", "form_edge": "TeamA",
+    "attack_edge": "TeamA", "defense_edge": "TeamA",
+    "notes": ["TeamA dominates recent form"]
+  }
+}

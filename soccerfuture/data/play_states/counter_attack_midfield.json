@@ -1,0 +1,39 @@
+{
+  "match_time": 45.0,
+  "possession_team": "home",
+  "ball_position": {"x": 34.0, "y": 52.5},
+  "game_phase": "transition",
+  "score_differential": 0,
+  "game_clock": 2700.0,
+  "decision_point_timestamp": 1.2,
+  "player_positions": [
+    {"player_id": "GK1", "x": 34.0, "y": 3.0, "timestamp": 1.2},
+    {"player_id": "CB1", "x": 25.0, "y": 30.0, "timestamp": 1.2},
+    {"player_id": "CB2", "x": 43.0, "y": 28.0, "timestamp": 1.2},
+    {"player_id": "LB1", "x": 8.0, "y": 38.0, "timestamp": 1.2},
+    {"player_id": "RB1", "x": 60.0, "y": 36.0, "timestamp": 1.2},
+    {"player_id": "CDM1", "x": 34.0, "y": 45.0, "timestamp": 1.2},
+    {"player_id": "CM1", "x": 30.0, "y": 52.0, "timestamp": 1.2},
+    {"player_id": "CAM1", "x": 36.0, "y": 62.0, "timestamp": 1.2},
+    {"player_id": "LW1", "x": 10.0, "y": 70.0, "timestamp": 1.2},
+    {"player_id": "RW1", "x": 58.0, "y": 68.0, "timestamp": 1.2},
+    {"player_id": "ST1", "x": 34.0, "y": 78.0, "timestamp": 1.2}
+  ],
+  "player_roles": {
+    "GK1": "GK",
+    "CB1": "CB",
+    "CB2": "CB",
+    "LB1": "LB",
+    "RB1": "RB",
+    "CDM1": "CDM",
+    "CM1": "CM",
+    "CAM1": "CAM",
+    "LW1": "LW",
+    "RW1": "RW",
+    "ST1": "ST"
+  },
+  "metadata": {
+    "formation": "4-3-3",
+    "description": "Counter-attack from midfield, transition phase at half-time, tied game"
+  }
+}

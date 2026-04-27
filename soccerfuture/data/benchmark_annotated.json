@@ -1,0 +1,139 @@
+{
+  "annotations": [
+    {
+      "branch_id": "B01-plausible-short-run",
+      "expected_label": "plausible",
+      "play_category": "corredor",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.4, 1.0],
+      "expected_opportunity_range": [0.4, 0.8],
+      "notes": "Short run, low speed, should be accepted and scored moderately"
+    },
+    {
+      "branch_id": "B02-plausible-screen-pass",
+      "expected_label": "plausible",
+      "play_category": "passe_curto",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.4, 1.0],
+      "expected_opportunity_range": [0.5, 0.9],
+      "notes": "Screen pass to RB, low risk, moderate reward"
+    },
+    {
+      "branch_id": "B03-plausible-deep-route",
+      "expected_label": "plausible",
+      "play_category": "passe_profundidade",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.5, 1.0],
+      "expected_opportunity_range": [0.5, 0.9],
+      "notes": "Deep run, LW running at 9 m/s, high reward potential"
+    },
+    {
+      "branch_id": "B04-implausible-teleport",
+      "expected_label": "implausible",
+      "play_category": "passe_profundidade",
+      "expected_gating": "fail",
+      "expected_validity_range": [0.0, 0.0],
+      "expected_opportunity_range": [0.0, 0.0],
+      "notes": "Teleport — physically impossible"
+    },
+    {
+      "branch_id": "B05-implausible-out-of-bounds",
+      "expected_label": "implausible",
+      "play_category": "corredor",
+      "expected_gating": "fail",
+      "expected_validity_range": [0.0, 0.0],
+      "expected_opportunity_range": [0.0, 0.0],
+      "notes": "Player starts out of bounds"
+    },
+    {
+      "branch_id": "B06-implausible-time-gap",
+      "expected_label": "implausible",
+      "play_category": "ataque_posicional",
+      "expected_gating": "fail",
+      "expected_validity_range": [0.0, 0.0],
+      "expected_opportunity_range": [0.0, 0.0],
+      "notes": "2-second frame gap — data corruption"
+    },
+    {
+      "branch_id": "B07-implausible-supersonic",
+      "expected_label": "implausible",
+      "play_category": "corredor",
+      "expected_gating": "fail",
+      "expected_validity_range": [0.0, 0.0],
+      "expected_opportunity_range": [0.0, 0.0],
+      "notes": "ST at 20 m/s — superhuman speed"
+    },
+    {
+      "branch_id": "B08-better-big-gain",
+      "expected_label": "better",
+      "play_category": "corredor",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.4, 1.0],
+      "expected_opportunity_range": [0.6, 1.0],
+      "notes": "ST gains 4 meters vs window's 2 — clearly better"
+    },
+    {
+      "branch_id": "B09-better-td-opportunity",
+      "expected_label": "better",
+      "play_category": "finalizacao_curta",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.5, 1.0],
+      "expected_opportunity_range": [0.5, 1.0],
+      "notes": "Goal near opponent goal — high value play"
+    },
+    {
+      "branch_id": "B10-better-no-turnover",
+      "expected_label": "better",
+      "play_category": "corredor",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.5, 1.0],
+      "expected_opportunity_range": [0.6, 1.0],
+      "notes": "Clean run vs window with fumble — safer alternative"
+    },
+    {
+      "branch_id": "B11-worse-fumble",
+      "expected_label": "worse",
+      "play_category": "corredor",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.5, 1.0],
+      "expected_opportunity_range": [0.0, 0.4],
+      "notes": "RB fumbles — catastrophic outcome"
+    },
+    {
+      "branch_id": "B12-worse-interception",
+      "expected_label": "worse",
+      "play_category": "passe_profundidade",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.5, 1.0],
+      "expected_opportunity_range": [0.0, 0.4],
+      "notes": "INT — worst possible passing outcome"
+    },
+    {
+      "branch_id": "B13-worse-big-loss",
+      "expected_label": "worse",
+      "play_category": "corredor",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.3, 1.0],
+      "expected_opportunity_range": [0.0, 0.3],
+      "notes": "Tackle + dispossession, 5-meter loss — should be plausible but terrible"
+    },
+    {
+      "branch_id": "B14-neutral-same-as-reality",
+      "expected_label": "neutral",
+      "play_category": "corredor",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.5, 1.0],
+      "expected_opportunity_range": [0.4, 0.6],
+      "notes": "Mirrors reality — opportunity should be near 0.5"
+    },
+    {
+      "branch_id": "B15-neutral-lateral-move",
+      "expected_label": "neutral",
+      "play_category": "jogada_lateral",
+      "expected_gating": "pass",
+      "expected_validity_range": [0.5, 1.0],
+      "expected_opportunity_range": [0.4, 0.6],
+      "notes": "Lateral movement, no gain — neutral value"
+    }
+  ]
+}

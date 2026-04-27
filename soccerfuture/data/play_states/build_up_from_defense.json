@@ -1,0 +1,39 @@
+{
+  "match_time": 15.0,
+  "possession_team": "home",
+  "ball_position": {"x": 30.0, "y": 20.0},
+  "game_phase": "open_play",
+  "score_differential": 0,
+  "game_clock": 4500.0,
+  "decision_point_timestamp": 1.0,
+  "player_positions": [
+    {"player_id": "GK1", "x": 34.0, "y": 4.0, "timestamp": 1.0},
+    {"player_id": "CB1", "x": 24.0, "y": 18.0, "timestamp": 1.0},
+    {"player_id": "CB2", "x": 44.0, "y": 17.0, "timestamp": 1.0},
+    {"player_id": "LB1", "x": 6.0, "y": 25.0, "timestamp": 1.0},
+    {"player_id": "RB1", "x": 62.0, "y": 24.0, "timestamp": 1.0},
+    {"player_id": "LM1", "x": 12.0, "y": 40.0, "timestamp": 1.0},
+    {"player_id": "CM1", "x": 28.0, "y": 35.0, "timestamp": 1.0},
+    {"player_id": "CM2", "x": 40.0, "y": 36.0, "timestamp": 1.0},
+    {"player_id": "RM1", "x": 56.0, "y": 42.0, "timestamp": 1.0},
+    {"player_id": "ST1", "x": 30.0, "y": 60.0, "timestamp": 1.0},
+    {"player_id": "ST2", "x": 38.0, "y": 58.0, "timestamp": 1.0}
+  ],
+  "player_roles": {
+    "GK1": "GK",
+    "CB1": "CB",
+    "CB2": "CB",
+    "LB1": "LB",
+    "RB1": "RB",
+    "LM1": "LW",
+    "CM1": "CM",
+    "CM2": "CM",
+    "RM1": "RW",
+    "ST1": "ST",
+    "ST2": "ST"
+  },
+  "metadata": {
+    "formation": "4-4-2",
+    "description": "Build-up play from defensive third, open play early in the match"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "home_team": "FC Porto",
+  "away_team": "SL Benfica",
+  "lookback_matches": 10,
+  "home_metrics": {
+    "matches_sampled": 10, "wins": 5, "draws": 3, "losses": 2,
+    "goals_for_avg": 1.6, "goals_against_avg": 0.8,
+    "xg_for_avg": 1.5, "xg_against_avg": 0.9,
+    "form_points": 18, "elo": 1700.0, "style_tags": ["possession", "high-press"]
+  },
+  "away_metrics": {
+    "matches_sampled": 10, "wins": 7, "draws": 1, "losses": 2,
+    "goals_for_avg": 2.0, "goals_against_avg": 0.7,
+    "xg_for_avg": 1.9, "xg_against_avg": 0.8,
+    "form_points": 22, "elo": 1720.0, "style_tags": ["direct", "counter"]
+  },
+  "comparative_signals": {
+    "stronger_team": "SL Benfica", "form_edge": "SL Benfica",
+    "attack_edge": "SL Benfica", "defense_edge": "FC Porto",
+    "notes": ["Classic Portuguese derby", "SL Benfica in stronger form away"]
+  }
+}

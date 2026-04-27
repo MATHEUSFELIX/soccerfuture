@@ -1,0 +1,412 @@
+{
+  "branches": [
+    {
+      "branch_id": "B01-plausible-short-run",
+      "expected_label": "plausible",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.3, "timestamp": 1.1},
+        {"player_id": "CM1", "x": 26.0, "y": 30.5, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.2, "y": 28.8, "timestamp": 1.1},
+        {"player_id": "ST1", "x": 24.5, "y": 29.5, "timestamp": 1.2},
+        {"player_id": "LW1", "x": 5.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 5.1, "y": 30.9, "timestamp": 1.1},
+        {"player_id": "LW1", "x": 5.3, "y": 31.7, "timestamp": 1.2}
+      ],
+      "events": [
+        {"event_type": "kick_off", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "pass", "timestamp": 1.1, "player_id": "ST1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST", "LW1": "LW"},
+      "metadata": {"play_type": "build_up", "description": "Short build-up, 2 meters, all speeds < 10 m/s"}
+    },
+    {
+      "branch_id": "B02-plausible-screen-pass",
+      "expected_label": "plausible",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.1},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 22.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 21.5, "y": 28.5, "timestamp": 1.1},
+        {"player_id": "ST1", "x": 21.0, "y": 29.2, "timestamp": 1.2},
+        {"player_id": "LW1", "x": 5.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 5.1, "y": 30.8, "timestamp": 1.1},
+        {"player_id": "LW1", "x": 5.2, "y": 31.5, "timestamp": 1.2}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "dribble", "timestamp": 1.1, "player_id": "ST1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST", "LW1": "LW"},
+      "metadata": {"play_type": "short_pass", "description": "Short pass to ST, low speeds"}
+    },
+    {
+      "branch_id": "B03-plausible-deep-route",
+      "expected_label": "plausible",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.2},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.4},
+        {"player_id": "LW1", "x": 8.0, "y": 31.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 8.0, "y": 32.8, "timestamp": 1.2},
+        {"player_id": "LW1", "x": 8.0, "y": 34.6, "timestamp": 1.4}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "cross", "timestamp": 1.3, "player_id": "LW1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "LW1": "LW"},
+      "metadata": {"play_type": "through_ball", "description": "Deep run, LW at 10 m/s"}
+    },
+    {
+      "branch_id": "B04-implausible-teleport",
+      "expected_label": "implausible",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.5, "timestamp": 1.1},
+        {"player_id": "LW1", "x": 5.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 45.0, "y": 85.0, "timestamp": 1.1}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "LW1": "LW"},
+      "metadata": {"play_type": "pass", "description": "LW teleports 67 meters in 0.1s"}
+    },
+    {
+      "branch_id": "B05-implausible-out-of-bounds",
+      "expected_label": "implausible",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.5, "timestamp": 1.1},
+        {"player_id": "ST1", "x": -5.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": -6.0, "y": 31.0, "timestamp": 1.1}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST"},
+      "metadata": {"play_type": "dribble", "description": "ST starts out of bounds (x=-5)"}
+    },
+    {
+      "branch_id": "B06-implausible-time-gap",
+      "expected_label": "implausible",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.2, "timestamp": 3.0},
+        {"player_id": "LW1", "x": 10.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 10.0, "y": 30.1, "timestamp": 3.0}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "LW1": "LW"},
+      "metadata": {"play_type": "pass", "description": "2-second gap between frames (max 0.5s)"}
+    },
+    {
+      "branch_id": "B07-implausible-supersonic",
+      "expected_label": "implausible",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.5, "timestamp": 1.1},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 30.0, "timestamp": 1.1}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST"},
+      "metadata": {"play_type": "dribble", "description": "ST at 20 m/s — exceeds 10 m/s max"}
+    },
+    {
+      "branch_id": "B08-better-big-gain",
+      "expected_label": "better",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.2},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.4},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.3, "y": 29.8, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.6, "y": 31.5, "timestamp": 1.4},
+        {"player_id": "LW1", "x": 5.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 5.0, "y": 31.8, "timestamp": 1.2},
+        {"player_id": "LW1", "x": 5.0, "y": 33.6, "timestamp": 1.4}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "dribble", "timestamp": 1.1, "player_id": "ST1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST", "LW1": "LW"},
+      "metadata": {"play_type": "build_up", "description": "ST gains 4 meters vs window's 2 meters"}
+    },
+    {
+      "branch_id": "B09-better-td-opportunity",
+      "expected_label": "better",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 90.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 90.0, "timestamp": 1.2},
+        {"player_id": "CM1", "x": 26.0, "y": 90.0, "timestamp": 1.4},
+        {"player_id": "LW1", "x": 8.0, "y": 92.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 8.0, "y": 93.8, "timestamp": 1.2},
+        {"player_id": "LW1", "x": 8.0, "y": 95.6, "timestamp": 1.4}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "shot", "timestamp": 1.3, "player_id": "LW1", "metadata": {}},
+        {"event_type": "goal", "timestamp": 1.4, "player_id": "LW1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "LW1": "LW"},
+      "metadata": {"play_type": "attack", "description": "Goal near opponent goal, window had no score"}
+    },
+    {
+      "branch_id": "B10-better-no-turnover",
+      "expected_label": "better",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.3, "y": 29.8, "timestamp": 1.2}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "dribble", "timestamp": 1.1, "player_id": "ST1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST"},
+      "metadata": {"play_type": "build_up", "description": "Clean dribble, no turnover vs window with dispossession"}
+    },
+    {
+      "branch_id": "B11-worse-fumble",
+      "expected_label": "worse",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 26.2, "timestamp": 1.2}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "dispossession", "timestamp": 1.1, "player_id": "ST1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST"},
+      "metadata": {"play_type": "build_up", "description": "ST dispossessed and loses 2 meters"}
+    },
+    {
+      "branch_id": "B12-worse-interception",
+      "expected_label": "worse",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 29.0, "timestamp": 1.2},
+        {"player_id": "LW1", "x": 8.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 8.0, "y": 28.2, "timestamp": 1.2}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "interception", "timestamp": 1.15, "player_id": "LW1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "LW1": "LW"},
+      "metadata": {"play_type": "pass", "description": "Interception, players move backward"}
+    },
+    {
+      "branch_id": "B13-worse-big-loss",
+      "expected_label": "worse",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 28.5, "timestamp": 1.2},
+        {"player_id": "CM1", "x": 26.0, "y": 27.0, "timestamp": 1.4},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 26.5, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 25.0, "timestamp": 1.4}
+      ],
+      "events": [
+        {"event_type": "tackle", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "foul", "timestamp": 1.1, "player_id": "CM1", "metadata": {}},
+        {"event_type": "dispossession", "timestamp": 1.2, "player_id": "ST1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST"},
+      "metadata": {"play_type": "defensive_pressure", "description": "Tackle + dispossession, 5-meter loss"}
+    },
+    {
+      "branch_id": "B14-neutral-same-as-reality",
+      "expected_label": "neutral",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.3, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.2, "y": 29.0, "timestamp": 1.2}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}},
+        {"event_type": "dribble", "timestamp": 1.1, "player_id": "ST1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST"},
+      "metadata": {"play_type": "build_up", "description": "Mirrors reality almost exactly"}
+    },
+    {
+      "branch_id": "B15-neutral-lateral-move",
+      "expected_label": "neutral",
+      "decision_point_timestamp": 1.0,
+      "positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 27.0, "y": 30.0, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 25.0, "y": 28.5, "timestamp": 1.2},
+        {"player_id": "LW1", "x": 5.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 5.5, "y": 30.5, "timestamp": 1.2}
+      ],
+      "events": [
+        {"event_type": "pass", "timestamp": 1.0, "player_id": "CM1", "metadata": {}}
+      ],
+      "player_roles": {"CM1": "CM", "ST1": "ST", "LW1": "LW"},
+      "metadata": {"play_type": "possession", "description": "Lateral movement, no real gain or loss"}
+    }
+  ],
+  "continuation_windows": [
+    {
+      "window_id": "cw-01", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.3, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.3, "y": 29.0, "timestamp": 1.2}
+      ], "yard_gain": 2.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-02", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 22.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 21.0, "y": 29.0, "timestamp": 1.2}
+      ], "yard_gain": 1.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-03", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.4},
+        {"player_id": "LW1", "x": 8.0, "y": 31.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 8.0, "y": 34.0, "timestamp": 1.4}
+      ], "yard_gain": 3.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-04", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 10.0, "y": 30.0, "timestamp": 1.0}
+      ], "yard_gain": 2.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-05", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0}
+      ], "yard_gain": 1.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-06", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 10.0, "y": 30.0, "timestamp": 1.0}
+      ], "yard_gain": 3.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-07", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0}
+      ], "yard_gain": 2.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-08", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.3, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.3, "y": 29.0, "timestamp": 1.2}
+      ], "yard_gain": 2.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-09", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 90.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 8.0, "y": 92.0, "timestamp": 1.0}
+      ], "yard_gain": 3.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-10", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0}
+      ], "yard_gain": 2.0, "turnover": true, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-11", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0}
+      ], "yard_gain": 5.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-12", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 8.0, "y": 30.0, "timestamp": 1.0}
+      ], "yard_gain": 8.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-13", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0}
+      ], "yard_gain": 10.0, "turnover": false, "scoring_play": true}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-14", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "CM1", "x": 26.0, "y": 30.3, "timestamp": 1.2},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.2, "y": 29.0, "timestamp": 1.2}
+      ], "yard_gain": 1.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    },
+    {
+      "window_id": "cw-15", "decision_point_timestamp": 1.0,
+      "outcomes": [{"positions": [
+        {"player_id": "CM1", "x": 26.0, "y": 30.0, "timestamp": 1.0},
+        {"player_id": "ST1", "x": 24.0, "y": 28.0, "timestamp": 1.0},
+        {"player_id": "LW1", "x": 5.0, "y": 30.0, "timestamp": 1.0}
+      ], "yard_gain": 1.0, "turnover": false, "scoring_play": false}],
+      "metadata": {}
+    }
+  ]
+}

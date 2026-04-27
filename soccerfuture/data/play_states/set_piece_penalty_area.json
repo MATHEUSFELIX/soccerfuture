@@ -1,0 +1,39 @@
+{
+  "match_time": 75.0,
+  "possession_team": "home",
+  "ball_position": {"x": 30.0, "y": 86.0},
+  "game_phase": "set_piece",
+  "score_differential": -1,
+  "game_clock": 900.0,
+  "decision_point_timestamp": 0.5,
+  "player_positions": [
+    {"player_id": "GK1", "x": 34.0, "y": 5.0, "timestamp": 0.5},
+    {"player_id": "CB1", "x": 28.0, "y": 35.0, "timestamp": 0.5},
+    {"player_id": "CB2", "x": 40.0, "y": 34.0, "timestamp": 0.5},
+    {"player_id": "LB1", "x": 10.0, "y": 45.0, "timestamp": 0.5},
+    {"player_id": "RB1", "x": 58.0, "y": 44.0, "timestamp": 0.5},
+    {"player_id": "CDM1", "x": 34.0, "y": 50.0, "timestamp": 0.5},
+    {"player_id": "CM1", "x": 26.0, "y": 80.0, "timestamp": 0.5},
+    {"player_id": "CAM1", "x": 38.0, "y": 88.0, "timestamp": 0.5},
+    {"player_id": "LW1", "x": 15.0, "y": 92.0, "timestamp": 0.5},
+    {"player_id": "RW1", "x": 50.0, "y": 90.0, "timestamp": 0.5},
+    {"player_id": "ST1", "x": 34.0, "y": 95.0, "timestamp": 0.5}
+  ],
+  "player_roles": {
+    "GK1": "GK",
+    "CB1": "CB",
+    "CB2": "CB",
+    "LB1": "LB",
+    "RB1": "RB",
+    "CDM1": "CDM",
+    "CM1": "CM",
+    "CAM1": "CAM",
+    "LW1": "LW",
+    "RW1": "RW",
+    "ST1": "ST"
+  },
+  "metadata": {
+    "formation": "4-3-3",
+    "description": "Free kick near penalty area, set piece at 75 minutes, trailing by one goal"
+  }
+}
