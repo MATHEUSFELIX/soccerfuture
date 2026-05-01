@@ -70,17 +70,76 @@ The soccerdata adapter uses a file-based cache with TTL support:
 
 When match context is present, the 2D viewer adds a fourth panel showing team names, comparative edges, cache status, and derived signal notes. Without context, the viewer renders the standard three-panel layout.
 
+## Human Evaluation and Robustness
+
+The project includes a trust evaluation framework for measuring pipeline reliability outside controlled fixtures.
+
+### Human Evaluation
+
+Generate structured evaluation packs for human reviewers, then ingest their ratings to produce aggregate summaries.
+
+```bash
+# Generate an evaluation pack from all play states in data/play_states/
+python scripts/trust_eval.py human-pack --output output/human_eval_pack.json
+```
+
+Each pack contains pipeline reports paired with standard questions (ranking quality, explanation clarity, physical plausibility, tactical coherence, overall trust). Evaluators rate each question on a 1–5 scale.
+
+After collecting responses, ingest them programmatically:
+
+```python
+from src.evaluation.human_eval_results import HumanEvalResponse, ingest_responses
+
+responses = [
+    HumanEvalResponse(
+        scenario_id="counter_attack_midfield",
+        evaluator_id="analyst_1",
+        ratings={"q_ranking": 4, "q_explanation": 3, "q_plausibility": 4,
+                 "q_tactical": 3, "q_overall": 4},
+    ),
+]
+summary = ingest_responses(responses, protocol)
+```
+
+### Robustness Analysis
+
+Test pipeline stability under degraded inputs using four deterministic strategies: noise injection, missing players, time shift, and position swap.
+
+```bash
+# Run robustness analysis across all strategies and play states
+python scripts/trust_eval.py robustness --output output/robustness.json
+```
+
+Each scenario is run as a baseline/degraded pair. Results are classified as **robust**, **sensitive**, or **fragile** based on validity/opportunity deltas and ranking stability.
+
+### Consolidated Trust Report
+
+Combine human evaluation, robustness, and context impact results into a single Markdown report with trust assessment and recommendations.
+
+```bash
+# Generate trust report (all inputs are optional)
+python scripts/trust_eval.py trust-report \
+    --human-eval output/human_eval.json \
+    --robustness output/robustness.json \
+    --context-impact output/context_impact.json \
+    --output output/trust_report.md
+```
+
+The report includes per-stream summaries, a deterministic trust level (High / Moderate / Low), and actionable recommendations. Missing streams are noted but do not block report generation.
+
 ## Project Structure
 
 ```
 src/
   domain/           # Domain models (MatchContext, ContextSignals)
+  evaluation/       # Human eval protocol, robustness suite, trust report
   integrations/     # Soccerdata adapter and cache
   models/           # Pipeline report, play state, branch models
   scoring/          # Validity, opportunity, gating scoring modules
   services/         # Context enricher
   viewer/           # 2D visualization
   utils/            # Shared constants and helpers
+scripts/            # CLI entry points (trust_eval.py, render_viewer.py, etc.)
 tests/              # Unit, integration, and regression tests
 data/               # Play states, fixtures, benchmarks
 ```
