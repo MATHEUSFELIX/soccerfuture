@@ -273,19 +273,72 @@ python scripts/trust_eval.py trust-report \
 
 The report includes per-stream summaries, a deterministic trust level (High / Moderate / Low), and actionable recommendations. Missing streams are noted but do not block report generation.
 
+## Analyst Workflow and Demo Bundles
+
+The project includes a workflow packaging layer that turns existing components into a repeatable analyst-facing flow.
+
+### Single-Scenario Workflow
+
+Run the full end-to-end workflow for one scenario:
+
+```python
+from src.models.play_state import dict_to_play_state
+from src.pipeline import PipelineConfig
+from src.workflows.analyst_workflow_runner import run_analyst_workflow
+
+manifest = run_analyst_workflow(
+    scenario_id="counter_attack_01",
+    play_state=play_state,
+    source_type="structured",
+    output_root="output/runs",
+    pipeline_config=PipelineConfig(n=15, k=3, seed=42),
+)
+```
+
+This produces a bundle directory with:
+- `run_status.json` — machine-readable step statuses
+- `input_reference.json` — input metadata
+- `extracted_play_state.json` — the PlayState used
+- `pipeline_report.json` — full pipeline output
+- `viewer_artifact.json` — viewer rendering reference
+- `analyst_summary.md` — concise analyst-facing summary
+
+### Batch Demo Mode
+
+Run multiple scenarios and generate an aggregate index:
+
+```python
+from src.workflows.batch_demo_runner import run_batch_demo
+
+scenarios = [
+    {"scenario_id": "s1", "play_state": play_state_1},
+    {"scenario_id": "s2", "play_state": play_state_2},
+]
+manifests, index_entries = run_batch_demo(
+    scenarios, output_root="output/runs",
+)
+```
+
+This generates per-scenario bundles plus `demo_index.json` and `demo_index.md` for browsing results.
+
+### Step-Level Status
+
+Each workflow run records per-step status (load, extract, pipeline, report, viewer, summary). Partial failures are surfaced clearly — if the viewer fails but the report succeeds, the run is marked "partial" rather than "failed".
+
 ## Project Structure
 
 ```
 src/
-  domain/           # Domain models (MatchContext, MatchPriors, ContextSignals)
+  domain/           # Domain models (MatchContext, MatchPriors, VideoClip, TrackedState)
   evaluation/       # Human eval protocol, robustness suite, trust report, tri-mode analysis
-  integrations/     # Soccerdata adapter, MatchPredict adapter, cache
+  integrations/     # Soccerdata adapter, MatchPredict adapter, commentator adapter, cache
   models/           # Pipeline report, play state, branch models
   scoring/          # Validity, opportunity, gating scoring modules
-  services/         # Context enricher, scenario policy
+  services/         # Context enricher, scenario policy, video state builder
   viewer/           # 2D visualization
+  workflows/        # Analyst workflow runner, batch demo, scenario bundles, demo index
   utils/            # Shared constants and helpers
 scripts/            # CLI entry points (trust_eval.py, render_viewer.py, etc.)
 tests/              # Unit, integration, and regression tests
-data/               # Play states, fixtures (soccerdata, matchpredict), benchmarks
+data/               # Play states, fixtures (soccerdata, matchpredict, commentator), benchmarks
 ```
