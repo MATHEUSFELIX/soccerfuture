@@ -70,6 +70,152 @@ The soccerdata adapter uses a file-based cache with TTL support:
 
 When match context is present, the 2D viewer adds a fourth panel showing team names, comparative edges, cache status, and derived signal notes. Without context, the viewer renders the standard three-panel layout.
 
+## Match Priors Integration
+
+The pipeline supports optional match-level priors derived from MatchPredict signals. Priors provide macro match expectations (aggression, risk, tempo, goal expectation, pressure) that lightly refine branch ranking without overpowering play-state evidence.
+
+### Fetching Priors
+
+Use `get_match_priors` to retrieve priors for two named teams:
+
+```python
+from src.integrations.matchpredict_adapter import get_match_priors
+
+priors = get_match_priors(
+    home_team="FC Porto",
+    away_team="SL Benfica",
+    competition="Primeira Liga",
+    season="2024",
+    use_fixtures=True,  # deterministic fixture mode for tests
+)
+```
+
+When no fixture or data source is available, the adapter returns safe-default fallback priors with `fallback_used=True` and low confidence.
+
+### Passing Priors to the Pipeline
+
+Pass `MatchPriors` as an optional argument alongside context:
+
+```python
+from src.pipeline import run_pipeline, PipelineConfig
+
+report = run_pipeline(
+    play_state,
+    PipelineConfig(),
+    match_context=ctx,       # optional
+    match_priors=priors,     # optional
+)
+```
+
+When `match_priors` is `None` (the default), the pipeline behaves exactly as before — priors are fully optional.
+
+### How Priors Influence Ranking
+
+Priors are translated into bounded `ScenarioPolicySignals` by the scenario policy service:
+
+- Each prior dimension's deviation from neutral (0.5) is scaled by confidence and clamped to ±0.15.
+- Tie-break bias is clamped to ±0.10.
+- When confidence is below 0.3, all adjustments are suppressed to zero.
+- Influence level is classified as "none", "light", or "moderate".
+
+Priors never replace core play-state scoring — they only slightly shift branch preference and help resolve close alternatives.
+
+### What the Report Includes
+
+When priors are provided, the `PipelineReport` includes:
+
+- `match_priors`: Serialized `MatchPriors` dict.
+- `scenario_policy_signals`: Derived `ScenarioPolicySignals` dict (adjustments, tie-break bias, influence level, notes).
+- `metadata["priors_requested"]`: `True` when priors were passed.
+- `metadata["priors_applied"]`: `True` when signals were derived.
+- `metadata["priors_source"]`: Source identifier (e.g. "matchpredict").
+- `metadata["priors_confidence"]`: Confidence value (0.0–1.0).
+- `metadata["priors_influence_level"]`: "none", "light", or "moderate".
+
+### Tri-Mode Evaluation
+
+Compare pipeline output across three modes to measure the incremental value of priors:
+
+```python
+from src.evaluation.context_impact_analysis import run_tri_mode_analysis
+
+result = run_tri_mode_analysis(
+    play_state, match_context, match_priors, scenario_id="demo",
+)
+```
+
+This runs the pipeline three times (baseline, context only, context + priors) and reports top-1/top-3 changes, score deltas, and influence classification.
+
+### Visualization
+
+When priors are present, the 2D viewer adds a compact priors panel showing prior values, confidence, influence level, and derived notes. The panel is separate from the match context panel to keep play-state evidence, context, and priors visually distinct.
+
+## Video-to-State Integration
+
+The pipeline supports video-derived PlayState inputs through a fixture-first ingestion layer. Real or commentator-derived tracking data can be converted into PlayState objects and evaluated by the existing pipeline.
+
+### Loading Tracking Data
+
+Use the commentator adapter to load fixture-based tracking data:
+
+```python
+from src.integrations.commentator_adapter import get_tracked_state
+
+tracked = get_tracked_state("sample_clip_01", use_fixtures=True)
+```
+
+This returns a `TrackedState` containing player positions, ball positions, clip reference, frame rate, and data gaps (low-confidence intervals).
+
+### Building PlayState from Tracking
+
+Convert tracked data into a pipeline-compatible PlayState:
+
+```python
+from src.services.video_state_builder import build_play_state
+
+play_state = build_play_state(
+    tracked,
+    decision_point_timestamp=10.0,
+    possession_team="Team A",
+    match_time=35.0,
+    game_phase="open_play",
+)
+```
+
+The builder selects the closest player/ball positions to the decision point, flags low-confidence players in metadata, and preserves clip traceability.
+
+### Running the Full Video Pipeline
+
+Use `run_video_pipeline` for the complete flow (tracking → PlayState → pipeline evaluation):
+
+```python
+from src.services.video_pipeline_eval import run_video_pipeline
+
+result = run_video_pipeline(
+    clip=tracked.clip_reference,
+    tracked=tracked,
+    decision_point_timestamp=10.0,
+)
+# result.play_state — the extracted PlayState
+# result.pipeline_report — full PipelineReport
+# result.errors — any conversion or pipeline errors
+# result.metadata — execution timing, fixture_mode flag
+```
+
+### Domain Models
+
+- `VideoClip`: Source clip metadata (path, start/end time, source info).
+- `TrackedState`: Player positions, ball positions, data gaps, clip reference.
+- `VideoPipelineResult`: Complete result with clip, PlayState, report, errors, metadata.
+
+### Fixture Data
+
+Deterministic fixtures are stored in `data/fixtures/commentator/`:
+- `sample_clip_01.json` — minimal 2-player tracking
+- `sample_clip_02.json` — full 11-player tracking with low-confidence entries
+
+No live inference or GPU dependencies are required for tests.
+
 ## Human Evaluation and Robustness
 
 The project includes a trust evaluation framework for measuring pipeline reliability outside controlled fixtures.
@@ -131,15 +277,15 @@ The report includes per-stream summaries, a deterministic trust level (High / Mo
 
 ```
 src/
-  domain/           # Domain models (MatchContext, ContextSignals)
-  evaluation/       # Human eval protocol, robustness suite, trust report
-  integrations/     # Soccerdata adapter and cache
+  domain/           # Domain models (MatchContext, MatchPriors, ContextSignals)
+  evaluation/       # Human eval protocol, robustness suite, trust report, tri-mode analysis
+  integrations/     # Soccerdata adapter, MatchPredict adapter, cache
   models/           # Pipeline report, play state, branch models
   scoring/          # Validity, opportunity, gating scoring modules
-  services/         # Context enricher
+  services/         # Context enricher, scenario policy
   viewer/           # 2D visualization
   utils/            # Shared constants and helpers
 scripts/            # CLI entry points (trust_eval.py, render_viewer.py, etc.)
 tests/              # Unit, integration, and regression tests
-data/               # Play states, fixtures, benchmarks
+data/               # Play states, fixtures (soccerdata, matchpredict), benchmarks
 ```
