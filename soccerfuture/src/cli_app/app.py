@@ -172,5 +172,17 @@ def generate_review_site_cmd(
         raise typer.Exit(code=1)
 
 
+@app.command(name="app")
+def web_app_cmd(
+    host: str = typer.Option("127.0.0.1", "--host", help="Host to bind to"),
+    port: int = typer.Option(8000, "--port", help="Port to listen on"),
+    no_browser: bool = typer.Option(False, "--no-browser", help="Don't open browser"),
+) -> None:
+    """Start the local web application in the browser."""
+    from src.web.local_app import start_server
+    console.print(f"[bold]Starting Football Tactical OS at http://{host}:{port}[/bold]")
+    start_server(host=host, port=port, open_browser=not no_browser)
+
+
 if __name__ == "__main__":
     app()
