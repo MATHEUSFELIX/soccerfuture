@@ -388,6 +388,74 @@ This generates per-scenario bundles plus `demo_index.json` and `demo_index.md` f
 
 Each workflow run records per-step status (load, extract, pipeline, report, viewer, summary). Partial failures are surfaced clearly — if the viewer fails but the report succeeds, the run is marked "partial" rather than "failed".
 
+## Ingestion Hardening
+
+The commentator/tracking ingestion boundary includes hardening layers for handling imperfect payloads safely.
+
+### Schema Detection
+
+Detect payload schema version and validate structure:
+
+```python
+from src.integrations.commentator_schema_registry import detect_schema_version
+
+result = detect_schema_version(raw_payload)
+# result.version — "v1" or "unknown"
+# result.compatible — whether ingestion can proceed
+# result.errors / result.warnings
+```
+
+### Payload Normalization
+
+Normalize field names, coerce types, and apply safe defaults:
+
+```python
+from src.integrations.commentator_payload_normalizer import normalize_payload
+
+norm = normalize_payload(raw_payload)
+# norm.payload — canonical v1 format
+# norm.applied_fixes — what was changed
+# norm.rejected — whether payload is unusable
+```
+
+Handles aliases (`id` → `player_id`, `clip` → `clip_reference`), string-to-float coercion, and missing confidence defaults.
+
+### Quality Assessment
+
+Grade normalized payloads on a deterministic scale:
+
+```python
+from src.services.input_quality_assessor import assess_quality
+
+assessment = assess_quality(normalized_payload)
+# assessment.grade — "good", "acceptable", "poor", or "rejected"
+# assessment.player_count, assessment.avg_player_confidence
+# assessment.issues — quality concerns
+```
+
+### Extraction Diagnostics
+
+Combine all checks into a single machine-readable record:
+
+```python
+from src.services.extraction_diagnostics import build_diagnostics
+
+diag = build_diagnostics("scenario_01", schema_result, norm_result, quality_result)
+# diag.rejected, diag.quality_grade, diag.warnings, diag.errors
+```
+
+### Ingestion Robustness Report
+
+Aggregate diagnostics across multiple payloads:
+
+```python
+from src.evaluation.ingestion_robustness_report import compute_ingestion_robustness
+
+report = compute_ingestion_robustness(diagnostics_list)
+# report.accepted_count, report.rejected_count
+# report.common_warnings, report.common_rejection_reasons
+```
+
 ## Project Structure
 
 ```
