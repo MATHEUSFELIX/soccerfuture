@@ -273,6 +273,37 @@ python scripts/trust_eval.py trust-report \
 
 The report includes per-stream summaries, a deterministic trust level (High / Moderate / Low), and actionable recommendations. Missing streams are noted but do not block report generation.
 
+## Analyst Review UI
+
+A lightweight static HTML review site for browsing scenario bundles, summaries, feedback, and readiness.
+
+### Generating the Review Site
+
+```python
+from src.ui.review_app import generate_review_site
+
+files = generate_review_site(
+    runs_root="output/runs",
+    output_dir="output/review_site",
+    feedback_dir="output/feedback",  # optional
+)
+# Open output/review_site/index.html in a browser
+```
+
+This generates:
+- `index.html` — scenario list with status, top-1 branch, readiness
+- `{scenario_id}.html` — detail page with branches, summary, feedback, viewer artifact
+
+### Exporting Feedback Templates
+
+```python
+from src.ui.review_app import export_feedback_template
+
+export_feedback_template("scenario_001", "output/feedback/template_s1.json")
+```
+
+Produces a structured JSON template matching the ReviewFeedback schema for reviewers to fill out.
+
 ## Stakeholder Review and Demo Hardening
 
 The project includes a review layer for preparing scenarios for stakeholder demos and capturing structured feedback.
