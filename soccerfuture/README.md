@@ -273,6 +273,69 @@ python scripts/trust_eval.py trust-report \
 
 The report includes per-stream summaries, a deterministic trust level (High / Moderate / Low), and actionable recommendations. Missing streams are noted but do not block report generation.
 
+## Stakeholder Review and Demo Hardening
+
+The project includes a review layer for preparing scenarios for stakeholder demos and capturing structured feedback.
+
+### Review Packs
+
+Generate concise stakeholder-facing review packs from existing scenario bundles:
+
+```python
+from src.review.review_pack import generate_review_pack
+
+pack = generate_review_pack("output/runs/scenario_001")
+# pack.top_branches — top-ranked branch summaries
+# pack.summary_text — analyst summary content
+# pack.run_status — overall workflow status
+```
+
+### Demo Readiness
+
+Evaluate whether a bundle is ready for stakeholder presentation:
+
+```python
+from src.review.demo_readiness import evaluate_readiness
+
+result = evaluate_readiness("output/runs/scenario_001")
+# result.label — "ready", "partially_ready", or "not_ready"
+# result.checks_passed / result.checks_failed
+# result.reasons — why it's not ready
+```
+
+Checks include: summary present, viewer artifact present, top-1 branch present, no critical failure, source metadata present, confidence info present.
+
+### Structured Feedback
+
+Capture reviewer feedback using a structured schema:
+
+```python
+from src.review.review_feedback_schema import ReviewFeedback
+from src.review.review_feedback_ingest import ingest_feedback
+
+feedback = [
+    ReviewFeedback(
+        scenario_id="s1", reviewer_id="analyst_1",
+        top_1_plausibility="yes", top_3_usefulness="partially",
+        summary_clarity=4, confidence_sufficiency=3,
+        blockers=["needs real tracking data"],
+    ),
+]
+aggregate = ingest_feedback(feedback)
+```
+
+### Stakeholder Report
+
+Generate a Markdown report combining readiness and feedback:
+
+```python
+from src.review.stakeholder_report import generate_stakeholder_report
+
+report = generate_stakeholder_report(readiness_results, feedback_aggregate=aggregate)
+```
+
+The report includes review coverage, readiness distribution, strongest/weakest scenarios, blockers, requested improvements, and recommendations.
+
 ## Analyst Workflow and Demo Bundles
 
 The project includes a workflow packaging layer that turns existing components into a repeatable analyst-facing flow.
@@ -333,6 +396,7 @@ src/
   evaluation/       # Human eval protocol, robustness suite, trust report, tri-mode analysis
   integrations/     # Soccerdata adapter, MatchPredict adapter, commentator adapter, cache
   models/           # Pipeline report, play state, branch models
+  review/           # Stakeholder review packs, feedback, readiness, index, report
   scoring/          # Validity, opportunity, gating scoring modules
   services/         # Context enricher, scenario policy, video state builder
   viewer/           # 2D visualization
