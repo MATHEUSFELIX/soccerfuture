@@ -388,6 +388,55 @@ This generates per-scenario bundles plus `demo_index.json` and `demo_index.md` f
 
 Each workflow run records per-step status (load, extract, pipeline, report, viewer, summary). Partial failures are surfaced clearly — if the viewer fails but the report succeeds, the run is marked "partial" rather than "failed".
 
+## Runtime Commentator Ingestion
+
+The system supports controlled runtime consumption of soccer-ai-commentator outputs without requiring full live production orchestration.
+
+### Configuration
+
+```python
+from src.runtime.commentator_runtime_config import RuntimeConfig
+
+# Load from a single file
+config = RuntimeConfig(source_type="local_path", source_path="/data/output.json")
+
+# Watch a directory for new outputs
+config = RuntimeConfig(source_type="watched_directory", source_path="/data/watch/")
+
+# Use a configured provider
+config = RuntimeConfig(source_type="provider", provider_name="commentator_api")
+```
+
+### Running Ingestion
+
+```python
+from src.runtime.runtime_ingestion_runner import run_ingestion
+
+batch = run_ingestion(config)
+# batch.total — payloads processed
+# batch.accepted_count / batch.rejected_count
+# batch.results — per-payload IngestionResult with diagnostics
+```
+
+Each payload passes through: schema detection → normalization → quality assessment → diagnostics → artifact storage. Rejected payloads are stored for audit but never passed to the pipeline.
+
+### Artifact Store
+
+All ingested payloads are persisted with traceability in the configured `artifact_store_path`:
+- `payload.json` — the raw payload
+- `diagnostics.json` — schema/quality diagnostics
+- `metadata.json` — provenance (source, timestamp, grade, rejection status)
+
+### Evaluation
+
+```python
+from src.evaluation.runtime_ingestion_eval import evaluate_ingestion_batch
+
+report = evaluate_ingestion_batch(batch)
+# report.acceptance_rate, report.grade_distribution
+# report.common_rejection_reasons, report.common_warnings
+```
+
 ## Ingestion Hardening
 
 The commentator/tracking ingestion boundary includes hardening layers for handling imperfect payloads safely.
